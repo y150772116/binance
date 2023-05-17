@@ -1,0 +1,29 @@
+import binance
+
+# 初始化API
+client = binance.Client(api_key, api_secret)
+
+# 获取市场深度
+depth = client.get_order_book(symbol='BTCUSDT')
+
+# 获取账户余额
+balance = client.get_account()
+
+# 下单
+order = client.create_order(
+    symbol='BTCUSDT',
+    side=binance.SIDE_BUY,
+    type=binance.ORDER_TYPE_LIMIT,
+    timeInForce=binance.TIME_IN_FORCE_GTC,
+    quantity=0.01,
+    price=50000
+)
+
+# 撤单
+client.cancel_order(
+    symbol='BTCUSDT',
+    orderId=order['orderId']
+)
+
+# 获取交易历史
+trades = client.get_my_trades(symbol='BTCUSDT')
